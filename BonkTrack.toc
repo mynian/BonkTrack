@@ -1,1 +1,7 @@
+## Interface: 70305
+## Title: BonkTrack
+## Notes: Track number of times you /bonk everyone
+## Version: 0.0.1
+## SavedVariablesPerCharacter: bonktrack
 
+BonkTrack.lua

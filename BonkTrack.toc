@@ -1,7 +1,7 @@
 ## Interface: 70305
 ## Title: BonkTrack
-## Notes: Track number of times you /bonk everyone
-## Version: 0.0.1
+## Notes: Counts the number of times you /bonk someone
+## Version: 0.01
 ## SavedVariablesPerCharacter: bonktrack
 
 BonkTrack.lua

@@ -1,6 +1,5 @@
 --Dummy Frame for event register
-local btrack = CreateFrame("Frame", "btrackframe")
-btrack:RegisterEvent("CHAT_MSG_TEXT_EMOTE")
+local btrack, events = CreateFrame("Frame", "btrackframe"), {}
 
 --Create the tables
 bonktrack = {}
@@ -39,15 +38,28 @@ hooksecurefunc("DoEmote", btracker)
 --track inbound bonks
 --[[
 local function btrackerin(self, event, ...)
-	if event == "CHAT_MSG_TEXT_EMOTE" then
-		etext, btname, _, _, _, _, _, _, _, _, _, pguid, _ = ...;
-		if pguid == ownguid then
-			return;
-		else
-			string.match(etext, 
+	etext, btname, _, _, _, _, _, _, _, _, _, pguid, _ = ...;
+	if pguid == ownguid then
+		return;
 	else
+		local namedump, bonkdump = string.match(etext, "^(%S*)%s*(.-)$")
+		if bonkdump == "bonks" then
+			print("bonkdump success")
+		else
+			print("bonkdump fail")
+		end
+	end		
+end
 
-	end
+function events:CHAT_MSG_TEXT_EMOTE(...)
+	btrackerin(self)
+end
 
+btrack:SetScript("OnEvent", function(self, event, ...)
+ events[event](self, ...); 
+end);
+
+for k, v in pairs(events) do
+ btrack:RegisterEvent(k);
 end
 ]]

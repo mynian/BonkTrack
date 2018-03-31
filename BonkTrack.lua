@@ -25,8 +25,11 @@ local function btracker(token)
 				--print("Success")
 				bonktrack[btname] = bonktrack[btname] and bonktrack[btname]+1 or 1
 				print("|cFFFFFF00BonkTrack:|r You have now bonked " .. btname .. " " .. bonktrack[btname] .. " times")
-				bonktrackguild[btguild] = bonktrackguild[btguild] and bonktrackguild[btguild]+1 or 1
-				print("|cFFFFFF00BonkTrack:|r You have now bonked the " .. btguild .. " " .. bonktrackguild[btguild] .. " times")
+				if btguild ~= nil then					
+					bonktrackguild[btguild] = bonktrackguild[btguild] and bonktrackguild[btguild]+1 or 1
+					print("|cFFFFFF00BonkTrack:|r You have now bonked the " .. btguild .. " " .. bonktrackguild[btguild] .. " times")
+				else
+				end				
 			else
 				--print("BONK fail")
 			end
@@ -63,7 +66,7 @@ SLASH_BONKTRACK1, SLASH_BONKTRACK2 = '/bonktrack', '/btrack'
 function SlashCmdList.BONKTRACK(msg, editBox)
 	local command, rest = msg:match("^(%S*)%s*(.-)$");
 		if string.lower(command) == 'player' then
-			print("|cFFFFFF00BonkTrack:|r |cFFFF0000Total Bonks!|r")
+			print("|cFFFFFF00BonkTrack:|r |cFFFF0000Total Player Bonks!|r")
 			for k,v in spairs(bonktrack, function(t,a,b) return t[b] < t[a] end) do 
 				print("|cFFFFFF00BonkTrack:|r You have bonked " .. k .. " " .. v .. " times.") 			
 			end
@@ -72,12 +75,13 @@ function SlashCmdList.BONKTRACK(msg, editBox)
 			bonktrackin = {}
 			print("|cFFFFFF00BonkTrack:|r All tracked bonks have been deleted.")
 		elseif string.lower(command) == 'guild' then
+			print("|cFFFFFF00BonkTrack:|r |cFFFF0000Total Guild Bonks!|r")
 			for k,v in spairs(bonktrackguild, function(t,a,b) return t[b] < t[a] end) do 
 				print("|cFFFFFF00BonkTrack:|r You have bonked the " .. k .. " " .. v .. " times.")
 			end
 		else
 			print("|cFFFFFF00BonkTrack:|r Use the command 'player' to list the number of times you bonked individual players.")
-			print("|cFFFFFF00BonkTrack:|r Use the command 'guild' to list the number of times you bonked individual guils.")
+			print("|cFFFFFF00BonkTrack:|r Use the command 'guild' to list the number of times you bonked individual guilds.")
 			print("|cFFFFFF00BonkTrack:|r Use the command 'reset' to reset the tracked player and guild bonk counts. |cFFFF0000THERE IS NO UNDO!!|r")
 		end
 end

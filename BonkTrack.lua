@@ -22,18 +22,57 @@ local function btracker(token)
 			if emotetype == "BONK" then
 				--print("Success")
 				bonktrack[btname] = bonktrack[btname] and bonktrack[btname]+1 or 1
-				print("BONKed " .. btname .. " " .. bonktrack[btname] .. " times")
+				print("|cFFFFFF00BonkTrack:|r You have now bonked " .. btname .. " " .. bonktrack[btname] .. " times")
 			else
-				print("BONK fail")
+				--print("BONK fail")
 			end
 		else
-			print("btname fail")
+			--print("btname fail")
 		end
 	else
-		print("Not a player or no target")
+		--print("Not a player or no target")
 	end
 end
 hooksecurefunc("DoEmote", btracker)
+
+--Create a function to sort the chat output in descending order
+local function spairs(t, order)
+	local keys = {}
+    for k in pairs(t) do keys[#keys+1] = k end    
+    if order then
+        table.sort(keys, function(a,b) return order(t, a, b) end)
+    else
+        table.sort(keys)
+    end    
+    local i = 0
+    return function()
+        i = i + 1
+        if keys[i] then
+            return keys[i], t[keys[i]]
+        end
+    end
+end
+
+
+--Create a Slash Command
+SLASH_BONKTRACK1, SLASH_BONKTRACK2 = '/bonktrack', '/btrack'
+function SlashCmdList.BONKTRACK(msg, editBox)
+	local command, rest = msg:match("^(%S*)%s*(.-)$");
+		if string.lower(command) == '' then
+			print("|cFFFFFF00BonkTrack:|r |cFFFF0000Total Bonks!|r")
+			for k,v in spairs(bonktrack, function(t,a,b) return t[b] < t[a] end) do 
+				print("|cFFFFFF00BonkTrack:|r You have bonked " .. k .. " " .. v .. " times.") 			
+			end
+		elseif string.lower(command) == 'reset' then
+			bonktrack = {}
+			bonktrackin = {}
+			print("|cFFFFFF00BonkTrack:|r All tracked bonks have been deleted.")		
+		else
+			print("|cFFFFFF00BonkTrack:|r Not a valid command.")
+		end
+end
+
+
 
 --track inbound bonks
 --[[

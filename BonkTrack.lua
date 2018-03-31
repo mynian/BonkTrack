@@ -1,5 +1,13 @@
---Create the table
+--Dummy Frame for event register
+local btrack = CreateFrame("Frame", "btrackframe")
+btrack:RegisterEvent("CHAT_MSG_TEXT_EMOTE")
+
+--Create the tables
 bonktrack = {}
+bonktrackin = {}
+
+--Store your own GUID
+local ownguid = UnitGUID("player")
 
 local emotetype, btname
 
@@ -27,3 +35,19 @@ local function btracker(token)
 	end
 end
 hooksecurefunc("DoEmote", btracker)
+
+--track inbound bonks
+--[[
+local function btrackerin(self, event, ...)
+	if event == "CHAT_MSG_TEXT_EMOTE" then
+		etext, btname, _, _, _, _, _, _, _, _, _, pguid, _ = ...;
+		if pguid == ownguid then
+			return;
+		else
+			string.match(etext, 
+	else
+
+	end
+
+end
+]]

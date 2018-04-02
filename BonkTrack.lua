@@ -86,6 +86,29 @@ function SlashCmdList.BONKTRACK(msg, editBox)
 		end
 end
 
+--Add bonks to the tooltip??
+local function bonktipnameadd(self)
+	btmname = GetUnitName("mouseover", true)		
+	if bonktrack[btmname] then
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine("Times you bonked " .. btmname .. ": " .. bonktrack[btmname])
+		GameTooltip:Show()
+	else
+	end	
+end
+
+local function bonktipguildadd(self)
+	btmguild = GetGuildInfo("mouseover")
+	if bonktrackguild[btmguild] then
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine("Times you bonked the " .. btmguild .. " Guild: " .. bonktrackguild[btmguild])
+		GameTooltip:Show()
+	else
+	end
+end
+
+GameTooltip:HookScript("OnShow", bonktipnameadd);
+GameTooltip:HookScript("OnShow", bonktipguildadd);
 
 
 --track inbound bonks

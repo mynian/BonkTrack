@@ -3,7 +3,7 @@ local btrack, events = CreateFrame("Frame", "btrackframe"), {}
 
 --Create the tables
 bonktrack = {}
---bonktrackin = {}
+bonktrackin = {}
 bonktrackguild = {}
 
 --Store your own GUID

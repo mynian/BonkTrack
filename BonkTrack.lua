@@ -3,11 +3,11 @@ local btrack, events = CreateFrame("Frame", "btrackframe"), {}
 
 --Create the tables
 bonktrack = {}
-bonktrackin = {}
+--bonktrackin = {}
 bonktrackguild = {}
 
 --Store your own GUID
-local ownguid = UnitGUID("player")
+--local ownguid = UnitGUID("player")
 
 local emotetype, btname, btguild
 
@@ -86,7 +86,8 @@ function SlashCmdList.BONKTRACK(msg, editBox)
 		end
 end
 
---Add bonks to the tooltip??
+
+--Add Bonks to standard tooltip
 local function bonktipnameadd(self)
 	btmname = GetUnitName("mouseover", true)		
 	if bonktrack[btmname] then
@@ -110,8 +111,54 @@ end
 GameTooltip:HookScript("OnShow", bonktipnameadd);
 GameTooltip:HookScript("OnShow", bonktipguildadd);
 
+--TRP3 Tooltips THE FUCK IF I CAN GET THIS TO WORK .... GODDAMMIT
+--[[
+local function trpbonktipnameadd(self)
+    btmname = GetUnitName("mouseover", true)
+	print(btmname)
+	if bonktrack[btmname] then
+		TRP3_CharacterTooltip:AddLine(" ")
+		TRP3_CharacterTooltip:AddLine("Times you bonked " .. btmname .. ": " .. bonktrack[btmname])
+		TRP3_CharacterTooltip:Show()
+		TRP3_CharacterTooltip:GetTop()
+	else
+	end	
+end
 
---track inbound bonks
+local function trpbonktipguildadd(self)
+	btmguild = GetGuildInfo("mouseover")
+	if bonktrackguild[btmguild] then
+		TRP3_CharacterTooltip:AddLine(" ")
+		TRP3_CharacterTooltip:AddLine("Times you bonked the " .. btmguild .. " Guild: " .. bonktrackguild[btmguild])
+		TRP3_CharacterTooltip:Show()
+		TRP3_CharacterTooltip:GetTop()
+	else
+	end
+end
+]]
+
+--TRP Tooltips Attempt #2 NOPE GO FUCK YOURSELF
+--[[
+function AddTooltipName(tooltip, text)
+    btmname = GetUnitName("mouseover", true)
+	if bonktrack[btmname] then	
+		tooltip:Addine("Times you bonked " .. btmname .. ": " .. bonktrack[btmname])
+		tooltip:Show()
+		tooltip:GetTop()
+	else
+	end
+end
+
+if TRP3_CharacterTooltip ~= nil then
+    TRP3_CharacterTooltip:HookScript("OnShow", function(t)
+        AddTooltipInfo(TRP3_CharacterTooltip, t.mouseover)
+    end)
+end
+]]
+
+
+
+--track inbound bonks  AHAHAHAHAHAHAHAHA IM TOO DUMB FOR THIS SHIT
 --[[
 local function btrackerin(self, event, ...)
 	etext, btname, _, _, _, _, _, _, _, _, _, pguid, _ = ...;

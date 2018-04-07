@@ -72,6 +72,7 @@ function SlashCmdList.BONKTRACK(msg, editBox)
 			end
 		elseif string.lower(command) == 'reset' then
 			bonktrack = {}
+			bonktrackguild = {}
 			bonktrackin = {}
 			print("|cFFFFFF00BonkTrack:|r All tracked bonks have been deleted.")
 		elseif string.lower(command) == 'guild' then
